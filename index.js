@@ -14,20 +14,24 @@ const domain = process.env.DOMAIN;
 const mailgun = require("mailgun-js")({ apiKey: api_key, domain: domain });
 
 app.post("/form", (req, res) => {
-  const data = {
-    from: `${req.fields.firstname} ${req.fields.lastname} <${req.fields.email}>`,
-    to: process.env.MAIL,
-    subject: `${req.fields.subject}`,
-    text: req.fields.message,
-  };
+  try {
+    const data = {
+      from: `${req.fields.firstname} ${req.fields.lastname} <${req.fields.email}>`,
+      to: process.env.MAIL,
+      subject: `${req.fields.subject}`,
+      text: req.fields.message,
+    };
 
-  mailgun.messages().send(data, (error, body) => {
-    if (error === undefined) {
-      res.status(200).json({ message: "Données bien reçues, mail envoyé." });
-    } else {
-      res.status(400).json(error);
-    }
-  });
+    mailgun.messages().send(data, (error, body) => {
+      if (error === undefined) {
+        res.status(200).json({ message: "Données bien reçues, mail envoyé." });
+      } else {
+        res.status(400).json(error);
+      }
+    });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
 });
 
 app.listen(process.env.PORT, () => {
