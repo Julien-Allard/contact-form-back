@@ -16,7 +16,7 @@ const mailgun = require("mailgun-js")({ apiKey: api_key, domain: domain });
 app.post("/form", (req, res) => {
   const data = {
     from: `${req.fields.firstname} ${req.fields.lastname} <${req.fields.email}>`,
-    to: "allardj85@gmail.com",
+    to: process.env.MAIL,
     subject: `${req.fields.subject}`,
     text: req.fields.message,
   };
