@@ -30,6 +30,7 @@ app.post("/form", (req, res) => {
       }
     });
   } catch (error) {
+    console.log(error.message);
     res.json({ message: error.message });
   }
 });
