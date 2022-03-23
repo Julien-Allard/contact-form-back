@@ -8,6 +8,7 @@ It allows my contact form to send me an email through a request on server (local
 - Express
 - Express-formidable
 - Dotenv
+- Cors
 - Mailgun.
 
 @Julien Allard
